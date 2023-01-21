@@ -1,34 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ColorGame />
     </div>
-  )
+  );
 }
 
-export default App
+function ColorGame() {
+  let [colors, setColors] = useState(["crimson", "orange", "aqua"]);
+  let [color, setColor] = useState("");
+  // let [color, setColor] = useState("purple");
+  let styles = {
+    background: color,
+  };
+  return (
+    <div>
+      <input
+        style={styles}
+        type="text"
+        onChange={(e) => setColor(e.target.value)}
+        value={color}
+      />
+      <button onClick={() => setColors([...colors, color])}>Add Color</button>
+      {colors.map((clr) => (
+        <ColorChange col={clr} />
+      ))}
+    </div>
+  );
+}
+
+function ColorChange({ col }) {
+  let styling = {
+    width: "177px",
+    height: "25px",
+    background: col,
+    marginTop: "5px",
+    marginBottom: "5px",
+  };
+  return <div style={styling}></div>;
+}
